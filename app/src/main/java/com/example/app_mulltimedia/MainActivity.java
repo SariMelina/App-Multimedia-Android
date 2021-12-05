@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -43,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        btnRecorder = findViewById(R.id.btnRec);
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, 1000);
+        }
+
         animatorSet = new AnimatorSet();
 
         btnani = findViewById(R.id.btnAnim);
@@ -66,12 +70,6 @@ public class MainActivity extends AppCompatActivity {
         controlador.setAnchorView(video);
         contenedor.addView(video);
         layin.addView(contenedor);
-
-        btnRecorder = findViewById(R.id.btnRec);
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, 1000);
-        }
-
     }
 
     public void animacion () {
@@ -89,18 +87,19 @@ public class MainActivity extends AppCompatActivity {
             grabacion = new MediaRecorder();
             grabacion.setAudioSource(MediaRecorder.AudioSource.MIC);
             grabacion.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            grabacion.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+            grabacion.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
             grabacion.setOutputFile(archivoSalida);
 
             try {
                 grabacion.prepare();
                 grabacion.start();
-            }catch (IOException e){     }
+            }catch (IOException e){
+                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+            }
 
             btnRecorder.setBackgroundResource(R.drawable.ic_baseline_fiber_manual_record_24);
             Toast.makeText(getApplicationContext(), "Grabando...", Toast.LENGTH_SHORT).show();
-        }
-        else if(grabacion!= null){
+        }else if(grabacion != null){
             grabacion.stop();
             grabacion.release();
             grabacion = null;
@@ -108,14 +107,15 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Grabación Finalizada", Toast.LENGTH_SHORT).show();
         }
     }
-
-    public void reproducir(View view) {
-        MediaPlayer mediaPlayer = new MediaPlayer();
+    public void Reproducir(View view) {
+        MediaPlayer m = new MediaPlayer();
         try {
-            mediaPlayer.setDataSource(archivoSalida);
-            mediaPlayer.prepare();
+            m.setDataSource(archivoSalida);
+            m.prepare();
         } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(getApplicationContext(), "Reproduciendo Audio...", Toast.LENGTH_SHORT).show();
+        m.start();
+        Toast.makeText(getApplicationContext(), "reproducción de audio", Toast.LENGTH_LONG).show();
     }
 }
