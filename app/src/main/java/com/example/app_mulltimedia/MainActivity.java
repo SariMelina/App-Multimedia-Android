@@ -83,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
         layin.addView(contenedor);
 
         queue = Volley.newRequestQueue(this);
-        txtId.findViewById(R.id.txtId);
-        txtName.findViewById(R.id.txtNombre);
-        txtDate.findViewById(R.id.txtDate);
+        txtId = findViewById(R.id.txtId);
+        txtName = findViewById(R.id.txtNombre);
+        txtDate = findViewById(R.id.txtDate);
 
         btnGet.setOnClickListener(new View.OnClickListener() {
             @Override
