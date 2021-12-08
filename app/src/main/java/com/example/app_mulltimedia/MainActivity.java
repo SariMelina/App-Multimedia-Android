@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 import java.io.IOException;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     MediaRecorder grabacion;
     String archivoSalida = null;
     Button btnRecorder, btnGet;
+    TextView txtId, txtName, txtDate;
 
     private RequestQueue queue;
 
@@ -81,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
         layin.addView(contenedor);
 
         queue = Volley.newRequestQueue(this);
+        txtId.findViewById(R.id.txtId);
+        txtName.findViewById(R.id.txtNombre);
+        txtDate.findViewById(R.id.txtDate);
 
         btnGet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,20 +103,17 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     jsonObject = response.getJSONObject(i);
 
-                   /* et1Name.setText(jsonObject.getString("name"));
-                    et1Password.setText(jsonObject.getString("password"));
-                    et1Email.setText(jsonObject.getString("email"));
-                    et1Phone.setText(jsonObject.getString("phone"));
-                    */
+                    txtId.append(jsonObject.getString("rfidUid") + "\n\n");
+                    txtName.append(jsonObject.getString("userName")+ "\n\n");
+                    txtDate.append(jsonObject.getString("created")+ "\n\n");
+
                     System.out.println(jsonObject);
 
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-
             }
-        },
-                new Response.ErrorListener() {
+        }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         System.out.println(error+" --------------------------------------");
