@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     jsonObject = response.getJSONObject(i);
 
-                    txtId.append(jsonObject.getString("rfidUid") + "\n\n");
+                    txtId.append(jsonObject.getString("userId") + "\n\n");
                     txtName.append(jsonObject.getString("userName")+ "\n\n");
                     txtDate.append(jsonObject.getString("created")+ "\n\n");
 
