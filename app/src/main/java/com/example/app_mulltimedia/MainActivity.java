@@ -109,9 +109,6 @@ public class MainActivity extends AppCompatActivity {
                     txtId.append(jsonObject.getString("userId") + "\n\n");
                     txtName.append(jsonObject.getString("userName")+ "\n\n");
                     txtDate.append(jsonObject.getString("created")+ "\n\n");
-
-                    System.out.println(jsonObject);
-
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
