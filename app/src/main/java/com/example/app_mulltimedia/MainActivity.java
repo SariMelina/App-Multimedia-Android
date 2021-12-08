@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     MediaRecorder grabacion;
     String archivoSalida = null;
-    Button btnRecorder;
+    Button btnRecorder, btnGet;
 
     private RequestQueue queue;
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, 1000);
         }
-
+        btnGet = findViewById(R.id.btnGet);
         animatorSet = new AnimatorSet();
 
         btnani = findViewById(R.id.btnAnim);
@@ -80,11 +80,17 @@ public class MainActivity extends AppCompatActivity {
         layin.addView(contenedor);
 
         queue = Volley.newRequestQueue(this);
-        obtenerDatos();
+
+        btnGet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                obtenerDatos();
+            }
+        });
     }
 
     public void obtenerDatos () {
-        String url = "https://api.androidhive.info/contacts/";
+        String url = "https://TU-IP/users/";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

@@ -11,7 +11,7 @@
         android:id="@+id/btnAnim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="64dp"
         android:text="TRY"
         app:layout_constraintStart_toEndOf="@+id/icon"
@@ -21,33 +21,32 @@
         android:id="@+id/icon"
         android:layout_width="50dp"
         android:layout_height="51dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_spellcheck_24" />
 
     <LinearLayout
         android:id="@+id/layin"
-        android:layout_width="374dp"
-        android:layout_height="192dp"
+        android:layout_width="285dp"
+        android:layout_height="142dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.231"
+        app:layout_constraintVertical_bias="0.21"
         tools:ignore="MissingConstraints">
 
     </LinearLayout>
 
     <Button
         android:id="@+id/btnRec"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/ic_baseline_fiber_manual_record_24"
         android:onClick="Recorder"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,10 +54,10 @@
 
     <Button
         android:id="@+id/btnPlay"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="120dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/ic_baseline_play_circle_filled_24"
         android:onClick="Reproducir"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,14 +67,88 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:text="GRABAR AUDIO"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="ANIMACIÓN LOGO"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="407dp"
+        android:layout_height="379dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Titulo"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtId"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/txtNombre"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/txtDate"
+                android:layout_width="157dp"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/Titulo"
+        android:layout_width="198dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="48dp"
+        android:text="ASISTENCIA RPI"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/btnGet"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layin" />
+
+    <Button
+        android:id="@+id/btnGet"
+        android:layout_width="128dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="48dp"
+        android:text="MOSTRAR ASISTENCIAS"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
