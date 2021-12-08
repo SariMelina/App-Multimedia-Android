@@ -20,8 +20,14 @@ import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
-
 import java.io.IOException;
+import com.android.volley.*;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     Button btnani;
@@ -35,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
     MediaRecorder grabacion;
     String archivoSalida = null;
-    Button btnRecorder, play;
+    Button btnRecorder;
+
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +78,38 @@ public class MainActivity extends AppCompatActivity {
         controlador.setAnchorView(video);
         contenedor.addView(video);
         layin.addView(contenedor);
+
+        queue = Volley.newRequestQueue(this);
+        obtenerDatos();
+    }
+
+    public void obtenerDatos () {
+        String url = "https://api.androidhive.info/contacts/";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+                    JSONArray myJsonArray = response.getJSONArray("users");
+
+                    for (int i=0 ; i<myJsonArray.length(); i++){
+                        JSONObject myJsonObject = myJsonArray.getJSONObject(i);
+                        String name = myJsonObject.getString("userName");
+                        Toast.makeText(MainActivity.this, "Nombre Usuario: "+ name, Toast.LENGTH_SHORT).show();
+                    }
+
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        queue.add(request);
     }
 
     public void animacion () {
