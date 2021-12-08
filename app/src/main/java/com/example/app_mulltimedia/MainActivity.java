@@ -96,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void obtenerDatos () {
+        txtId.setText("");
+        txtName.setText("");
+        txtDate.setText("");
         String url = "http://192.168.0.9:5000/users/";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, response -> {
             JSONObject jsonObject = null;
