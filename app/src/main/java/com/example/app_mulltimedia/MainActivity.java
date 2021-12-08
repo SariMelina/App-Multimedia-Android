@@ -22,6 +22,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 import java.io.IOException;
 import com.android.volley.*;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -90,32 +91,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void obtenerDatos () {
-        String url = "https://TU-IP/users/";
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
+        String url = "http://192.168.0.9:5000/users/";
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, response -> {
+            JSONObject jsonObject = null;
+            for (int i = 0; i < response.length(); i++){
                 try {
-                    JSONArray myJsonArray = response.getJSONArray("users");
+                    jsonObject = response.getJSONObject(i);
 
-                    for (int i=0 ; i<myJsonArray.length(); i++){
-                        JSONObject myJsonObject = myJsonArray.getJSONObject(i);
-                        String name = myJsonObject.getString("userName");
-                        Toast.makeText(MainActivity.this, "Nombre Usuario: "+ name, Toast.LENGTH_SHORT).show();
-                    }
+                   /* et1Name.setText(jsonObject.getString("name"));
+                    et1Password.setText(jsonObject.getString("password"));
+                    et1Email.setText(jsonObject.getString("email"));
+                    et1Phone.setText(jsonObject.getString("phone"));
+                    */
+                    System.out.println(jsonObject);
 
-                }catch (JSONException e) {
-                    e.printStackTrace();
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        queue.add(request);
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error+" --------------------------------------");
+                    }
+                }
+        );
+        queue.add(jsonArrayRequest);
     }
 
     public void animacion () {
